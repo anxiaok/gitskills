@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="ad.css">
+	<script src="jquery-1.12.4.min.js"></script>
+</head>
+<body>
+	<div class="anxs-6qwe-ad">
+		<div class="anxs-6qwe-ad-wrapper">
+			<div class="anxs-6qwe-ad-slide">
+				<a href="http://new.wanfangdata.com.cn/informationController/getDetails.do?type=activity&id=c20c90b6afb54fb5b47cec3359954e3e">
+					<img src="http://ad.wanfangdata.com.cn/images/2017/2017111401.jpg" alt="">
+				</a>
+				<a href="http://c.wanfangdata.com.cn/helpvideo.aspx">
+					<img src="http://ad.wanfangdata.com.cn/images/2016/helpvideo-www.jpg" alt="">
+				</a>
+				<a href="http://video.wanfangdata.com.cn/page/weishipin/4.html">
+					<img src="http://ad.wanfangdata.com.cn/images/2017/2017062601.jpg" alt="">
+				</a>
+
+				<a href="http://www.icmite.org">
+					<img src="http://ad.wanfangdata.com.cn/images/2017/2017021401.jpg" alt="">
+				</a>
+				<a href="http://www.itnec.org">
+					<img src="http://ad.wanfangdata.com.cn/images/2017/2017021402.jpg" alt="">
+				</a>
+				<a href="http://www.jimec.org">
+					<img src="http://ad.wanfangdata.com.cn/images/2017/2017021403.jpg" alt="">
+				</a>
+				<a href="http://www.ibtcevents.com">
+					<img src="http://ad.wanfangdata.com.cn/images/2017/20170221-01.jpg" alt="2017（第六届）国际桥梁与隧道技术大会">
+				</a>
+				<a href="http://ieti.net/icemi">
+					<img src="http://ad.wanfangdata.com.cn/images/2017/20170302-01.jpg" alt="2017年第二届经济管理创新国际会议">
+				</a>
+
+				<a href="http://ieti.net/icecsd">
+					<img src="http://ad.wanfangdata.com.cn/images/2017/20170302-02.jpg" alt="2017年教育、文化与社会发展国际会议">
+				</a>
+				<a href="http://www.itoec.org">
+					<img src="http://ad.wanfangdata.com.cn/images/2016/2016092901itoec2017.jpg" alt="">
+				</a>
+				<a href="http://www.ifedc.org">
+					<img src="http://ad.wanfangdata.com.cn/images/2017/2017011401.jpg" alt="">
+				</a>
+				<a href="http://new.wanfangdata.com.cn/informationController/getDetails.do?type=activity&id=5dd26f77ab654c4198848518e9a8c02b">
+					<img src="http://new.wanfangdata.com.cn/page/images/u169.jpg" alt="">
+				</a>
+			</div>
+			<!-- 底部导航 -->
+			<div class="anxs-6qwe-ad-item anxs-6qwe-ad-clear"></div>
+		</div>
+	</div>
+	<script>
+		$(function(){
+			var anxsAdSlide = (function(){
+				var me = $('.anxs-6qwe-ad');                   
+				var slide = me.find('.anxs-6qwe-ad-slide');    //广告外围div
+				var item = me.find('.anxs-6qwe-ad-item');	   //底部导航按钮
+				var timer = null;							   //定时器
+				var num;                                       //具体的数字
+				var length;
+				var total;
+				var initWidth = 1170;
+				return {
+					//改变状态
+					changeState:function(num){
+						if(num == length){
+							item.find('i').eq(0).addClass('anxs-active').siblings().removeClass('anxs-active');
+							slide.stop(true,true).animate({'left':-(num*initWidth)+'px'},700,function(){
+								$(this).css('left',0);
+							});
+						}else{
+							slide.stop(true,true).animate({'left':-(num*initWidth)+'px'},700);
+							item.find('i').eq(num).addClass('anxs-active').siblings().removeClass('anxs-active');
+						}
+					},
+					//悬浮过程
+					hoverProcess:function(par,child){
+						var that = this;
+						var index;
+						par.find(child).hover(function(){
+							index = $(this).index();
+							clearInterval(timer);
+							that.changeState(index);
+						},function(){
+							that.initMove(index);
+						});
+					},
+					//悬浮事件
+					hoverEvent:function(){
+						this.hoverProcess(item,'i');    //悬浮在底部导航上的事件
+						this.hoverProcess(slide,'a');   //悬浮在图片上的事件
+					},
+					//初始化定时器
+					initMove:function(num){
+						var that = this;
+						timer = setInterval(function(){
+							num++;
+							if(num > length){
+								num = 1;
+							}
+							that.changeState(num);
+						},2000);
+					},
+					//初始化添加底部导航
+					initItem:function(){
+						length = slide.children('a').length;
+						total = (length+1)*initWidth;
+						var clone = slide.find('a').first().clone(true);//克隆第一张图片
+                		slide.append(clone);//复制到列表最后
+						for(var i=0;i<length;i++){
+							item.append('<i></i>');
+						}
+						item.find('i').eq(0).addClass('anxs-active');
+						slide.css('width',total+'px');
+						
+					},
+					init:function(){
+						this.initItem();
+						this.initMove(0);
+						this.hoverEvent();
+					}
+				}
+			})().init();
+		});
+	</script>
+</body>
+</html>
