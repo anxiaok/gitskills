@@ -11,42 +11,23 @@
 		<div class="anxs-6qwe-ad-wrapper">
 			<div class="anxs-6qwe-ad-slide">
 				<a href="http://new.wanfangdata.com.cn/informationController/getDetails.do?type=activity&id=c20c90b6afb54fb5b47cec3359954e3e">
-					<img src="http://ad.wanfangdata.com.cn/images/2017/2017111401.jpg" alt="">
+					<img src="http://ad.wanfangdata.com.cn/images/2017/2017111401.jpg" data-time="1" alt="">
 				</a>
 				<a href="http://c.wanfangdata.com.cn/helpvideo.aspx">
-					<img src="http://ad.wanfangdata.com.cn/images/2016/helpvideo-www.jpg" alt="">
+					<img src="http://ad.wanfangdata.com.cn/images/2016/helpvideo-www.jpg" data-time="2" alt="">
 				</a>
 				<a href="http://video.wanfangdata.com.cn/page/weishipin/4.html">
-					<img src="http://ad.wanfangdata.com.cn/images/2017/2017062601.jpg" alt="">
+					<img src="http://ad.wanfangdata.com.cn/images/2017/2017062601.jpg" data-time="3" alt="">
 				</a>
 
 				<a href="http://www.icmite.org">
-					<img src="http://ad.wanfangdata.com.cn/images/2017/2017021401.jpg" alt="">
+					<img src="http://ad.wanfangdata.com.cn/images/2017/2017021401.jpg" data-time="1" alt="">
 				</a>
 				<a href="http://www.itnec.org">
-					<img src="http://ad.wanfangdata.com.cn/images/2017/2017021402.jpg" alt="">
+					<img src="http://ad.wanfangdata.com.cn/images/2017/2017021402.jpg" data-time="1" alt="">
 				</a>
 				<a href="http://www.jimec.org">
-					<img src="http://ad.wanfangdata.com.cn/images/2017/2017021403.jpg" alt="">
-				</a>
-				<a href="http://www.ibtcevents.com">
-					<img src="http://ad.wanfangdata.com.cn/images/2017/20170221-01.jpg" alt="2017（第六届）国际桥梁与隧道技术大会">
-				</a>
-				<a href="http://ieti.net/icemi">
-					<img src="http://ad.wanfangdata.com.cn/images/2017/20170302-01.jpg" alt="2017年第二届经济管理创新国际会议">
-				</a>
-
-				<a href="http://ieti.net/icecsd">
-					<img src="http://ad.wanfangdata.com.cn/images/2017/20170302-02.jpg" alt="2017年教育、文化与社会发展国际会议">
-				</a>
-				<a href="http://www.itoec.org">
-					<img src="http://ad.wanfangdata.com.cn/images/2016/2016092901itoec2017.jpg" alt="">
-				</a>
-				<a href="http://www.ifedc.org">
-					<img src="http://ad.wanfangdata.com.cn/images/2017/2017011401.jpg" alt="">
-				</a>
-				<a href="http://new.wanfangdata.com.cn/informationController/getDetails.do?type=activity&id=5dd26f77ab654c4198848518e9a8c02b">
-					<img src="http://new.wanfangdata.com.cn/page/images/u169.jpg" alt="">
+					<img src="http://ad.wanfangdata.com.cn/images/2017/2017021403.jpg" data-time="2" alt="">
 				</a>
 			</div>
 			<!-- 底部导航 -->
@@ -64,17 +45,23 @@
 				var length;
 				var total;
 				var initWidth = 1170;
+				var dataTime = slide.find('a').eq(0).find('img').attr('data-time');
 				return {
 					//改变状态
 					changeState:function(num){
+						var that = this;
 						if(num == length){
+							dataTime = slide.find('a').eq(0).find('img').attr('data-time');
 							item.find('i').eq(0).addClass('anxs-active').siblings().removeClass('anxs-active');
 							slide.stop(true,true).animate({'left':-(num*initWidth)+'px'},700,function(){
 								$(this).css('left',0);
 							});
+							that.initMove(0);
 						}else{
+							dataTime = slide.find('a').eq(num).find('img').attr('data-time');
 							slide.stop(true,true).animate({'left':-(num*initWidth)+'px'},700);
 							item.find('i').eq(num).addClass('anxs-active').siblings().removeClass('anxs-active');
+							that.initMove(num);
 						}
 					},
 					//悬浮过程
@@ -83,7 +70,7 @@
 						var index;
 						par.find(child).hover(function(){
 							index = $(this).index();
-							clearInterval(timer);
+							clearTimeout(timer);
 							that.changeState(index);
 						},function(){
 							that.initMove(index);
@@ -97,13 +84,14 @@
 					//初始化定时器
 					initMove:function(num){
 						var that = this;
-						timer = setInterval(function(){
+						clearTimeout(timer);
+						timer = setTimeout(function(){
 							num++;
 							if(num > length){
 								num = 1;
 							}
 							that.changeState(num);
-						},2000);
+						},dataTime*1000);
 					},
 					//初始化添加底部导航
 					initItem:function(){
