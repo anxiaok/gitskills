@@ -27,19 +27,15 @@
         <div id="showBg" v-show="showProgress">
             <div id="file-progress-List">
                 <div v-for="item,index in progressList" :key="index">
-                    <span>{{item.fileName}}</span>
-                    <Progress :percent="item.percent" status="active" >
-                        <i class="ivu-icon checkmark-circled"></i>
-                        <span>{{item.percent === 100 ? '成功':item.percent+'%'}}</span>
-                    </Progress>
+                    <span class="file-name">{{item.fileName}}</span>
+                    <el-progress :percentage="item.percent" :color="customColorMethod" :format="format"></el-progress>
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
-    import plupload from 'plupload'
-    import Icon from 'iview/src/components/Icon';
+    import plupload from 'plupLoad'
     export default{
         props:{
             browse_button: '',
@@ -73,12 +69,25 @@
             }
         },
         components:{
-            plupload,Icon
+            plupload
         },
         mounted(){
+            this.token = this.$cookie.get('osstoken');
             this.initPlupLoad();
         },
         methods: {
+            // 格式化进度条文字
+            format(percentage){
+              return percentage === 100 ? '成功' : `${percentage}%`;
+            },
+            // 修改进度条颜色
+            customColorMethod(percentage) {
+              if (percentage < 100) {
+                return '#1E8E76';
+              } else {
+                return '#2BB943';
+              }
+            },
             check_object_radio() {
                 let tt = document.getElementsByName('myradio');
                 for (let i = 0; i < tt.length ; i++ )
@@ -175,7 +184,7 @@
                             that.progressList = [];
                             that.$request.apiAxiosHasBaseUrl('get','cmsApp/content/getSign',{},{
                                 token:that.token
-                            },false).then((request) => {
+                            }).then((request)=>{
                                 let requestData = request.data;
                                 that.accessid = requestData.accessid;
                                 that.signature = requestData.signature;
@@ -193,7 +202,7 @@
                                     'host':requestData.host
                                 };
                                 up.start();
-                            })
+                            });
                         },
                         BeforeUpload: function(up, file) {
                             that.percent = 0;
@@ -266,33 +275,22 @@
 </script>
 <style lang="scss">
     #showBg{
-        width:500px;
-        min-height:100px;
-        background: rgba(0, 0, 0, 0.42);
-        border-radius:50px;
+        width:320px;
+        background: #fff;
+        box-shadow:0 2px 12px 0 rgba(0,0,0,0.18);
+        border-radius:4px;
+        padding:20px;
         position:fixed;
         top:45%;
         left:50%;
         margin-left:-250px;
         z-index:10;
-        padding:20px;
         color:#fff;
-        #file-progress-List{
-            position: relative;
-            top: 3px;
-            left: 14px;
-            /*.ivu-progress-success .ivu-progress-bg{*/
-                /*background: #2d8cf0;*/
-            /*}*/
-            /*.ivu-progress-bg{*/
-                /*background: #2d8cf0;*/
-            /*}*/
-            /*.ivu-progress-success-bg{*/
-                /*background: #19be6b;*/
-            /*}*/
-            /*.ivu-progress-text{*/
-                /*color:#2d8cf0;*/
-            /*}*/
+        #file-progress-List {
+          .file-name {
+            color: #999;
+            font-size: 12px;
+          }
         }
     }
 </style>
