@@ -134,3 +134,55 @@ function jumpFloor1(n){
     return cache[n] = jumpFloor1(n-1)+jumpFloor1(n-2);
 }
 console.log(cache,jumpFloor1(10));
+
+// log
+
+const promise1 = new Promise((resolve,reject) => {reject();});
+const promise2 = promise1.then(null,function(){
+    return {
+        get then(){
+            throw new Error();
+        }
+    }
+})
+promise2.then(()=>{
+    console.log('promise2 已完成');
+},() =>{
+    console.log('promise2 已拒绝');
+});
+// promise2 已完成
+// 防抖 节流
+function debounce(fn,wait){
+    wait = wait || 0;
+    var timerId;
+    function helper(){
+        if(timerId){
+            clearTimeout(timerId);
+            timerId = null;
+        }
+        timerId = setTimeout(function(){
+            fn();
+        },wait);
+    }
+    return helper;
+}
+function throttle(fn,threshhold){
+    var last;
+    var timer;
+    threshhold || (threshhold = 250)
+    return function(){
+        var context = this;
+        var args = arguments;
+        var now = +new Date();
+        if(last && now <last + threshhold){
+            clearTimeout(timer);
+            timer = setTimeout(function(){
+                last = now;
+                fn.apply(context,args);
+            },threshhold);
+        }else{
+            last = now;
+            fn.apply(context,args);
+        }
+    }
+}
