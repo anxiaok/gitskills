@@ -4,7 +4,11 @@
  * @Author: anxk
  * @Date: 2020-11-24 18:26:03
  * @LastEditors: sueRimn
+<<<<<<< HEAD
  * @LastEditTime: 2020-11-24 19:33:15
+=======
+ * @LastEditTime: 2020-11-24 19:17:20
+>>>>>>> 7960c18... 提交
 -->
 git reset <commit_id> 回退到某个版本（内容不会回退，commit_id 会回退）
 
@@ -23,4 +27,4 @@ git rebase (单独操作，和远端操作)
     git rebase --continue
 
 和远端操作：
-    
+    不测试不测试
