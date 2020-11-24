@@ -4,7 +4,7 @@
  * @Author: anxk
  * @Date: 2020-11-24 18:26:03
  * @LastEditors: sueRimn
- * @LastEditTime: 2020-11-24 18:47:57
+ * @LastEditTime: 2020-11-24 19:33:15
 -->
 git reset <commit_id> 回退到某个版本（内容不会回退，commit_id 会回退）
 
