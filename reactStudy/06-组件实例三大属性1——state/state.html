@@ -21,15 +21,18 @@
                 }
             }
             render(){
+                const {isHot, wind} = this.state;
                 return (
                     <div>
-                        <h2>今天天气很炎热,今天有大风</h2>
+                        <h2 onClick={demo}>今天天气很{isHot?'炎热':'凉爽'},今天有{wind}</h2>
                     </div>
                 );
             }
         }
         ReactDOM.render(<Weather />,document.getElementById('test'));
-        
+        function demo(){
+            console.log('标题被点击了');
+        }
     </script>
 </body>
 </html>
