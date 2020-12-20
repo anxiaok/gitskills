@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hello-react</title>
+</head>
+<body>
+    <div id="test"></div>
+
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <script type="text/babel">
+        /*
+            js 语句（代码）
+            1，表达式：一个表达式会产生一个值
+                1，a
+                2，a+b
+                3，demo(1)
+                4，arr.map()
+                5，function test(){}
+            2,语句（代码）：
+                1，if(){}
+                2,for(){}
+                3,switch(){}
+        */
+        const data = ['Angular','React','Vue'];
+        //1,创建虚拟DOM
+        const VDOM = (
+            <div>
+                <h2>前端js框架列表</h2>
+                <ul>
+                    {
+                        data.map((item)=>{
+                            return <li key={item}>{item}</li>
+                        })
+                    }
+                </ul>
+            </div>
+        );
+        //2,渲染虚拟DOM到页面
+        ReactDOM.render(VDOM,document.getElementById('test'));
+    </script>
+</body>
+</html>
