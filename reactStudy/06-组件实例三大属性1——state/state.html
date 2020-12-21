@@ -7,32 +7,45 @@
 </head>
 <body>
     <div id="test"></div>
-
+    <!-- // 18集 -->
     <script src="../js/react.development.js"></script>
     <script src="../js/react-dom.development.js"></script>
     <script src="../js/babel.min.js"></script>
     <script type="text/babel">
         class Weather extends React.Component{
+            // 构造器调用几次? --1次 
             constructor(props){
+                console.log('constructor');
                 super(props)
                 this.state = {
                     isHot:true,
                     wind:'大风'
                 }
+                this.changeWeather = this.changeWeather.bind(this)
             }
+            // render调用几次？ -- 1+n次，1是初始化的那次，n是状态更新的次数
             render(){
                 const {isHot, wind} = this.state;
                 return (
                     <div>
-                        <h2 onClick={demo}>今天天气很{isHot?'炎热':'凉爽'},今天有{wind}</h2>
+                        <h2 onClick={this.changeWeather}>今天天气很{isHot?'炎热':'凉爽'},今天有{wind}</h2>
                     </div>
                 );
             }
+            // changeWeather 调用几次？ -- 点几次调几次
+            changeWeather() {
+                // changeWeatherf放在哪里》 -- Weather的原型对象上，供实例使用
+                // 由于changeWeather 是作为onClick的回调，所以不是通过实例调用的，是直接调用，use strict 
+                // 类中的方法默认开启了局部的严格模式，所以changeWeather中的this为undefined
+                const isHot = this.state.isHot;
+                // 严重注意：state不可直接更改，下main这行是直接更改！
+                //this.state.isHot = !isHot;
+                console.log(this.state.isHot);
+                // 严重注意：状态使用setState修改，且更新是合并，不是替换
+                this.setState({isHot:!isHot});
+            }
         }
         ReactDOM.render(<Weather />,document.getElementById('test'));
-        function demo(){
-            console.log('标题被点击了');
-        }
     </script>
 </body>
 </html>
