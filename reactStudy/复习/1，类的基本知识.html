@@ -52,6 +52,19 @@
         const s1 = new Student('小张',15,'高一');
         console.log(s1);
         s1.speak();
+
+        class Car{
+            constructor(name,price){
+                this.name = name;
+                this.price = price;
+            }
+            // 类中可以直接写赋值语句，如下代码的含义是：给car的实例对象添加一个属性，名为a,值为1
+
+            static demo = 1;
+        }
+        var c1 = new Car('奔驰',123);
+        var c2 = new Car('宝马', 223);
+
     </script>
 </body>
 </html>
