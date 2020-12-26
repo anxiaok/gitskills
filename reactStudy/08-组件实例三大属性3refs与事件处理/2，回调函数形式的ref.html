@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类式对象组件</title>
+</head>
+
+<body>
+    <div id="test"></div>
+    <!-- // 18集 -->
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <!-- 用于对组件标签属性进行限制 -->
+    <script src="../js/prop-types.js"></script>
+    <script type="text/babel">
+        class Demo extends React.Component{
+            // ref字符串的不被推荐使用，有效率问题
+            // 展示左侧输入框的数据
+            showData = () => {
+                const {input1} = this;
+                console.log(input1.value);
+            }
+            // 展示右侧输入框的数据
+            showData2 = () =>{
+                const { input2 } = this;
+                console.log(this);
+                console.log(input2.value);
+            }
+            render(){
+                return (
+                    <div>
+                        <input ref={c=>this.input1 = c} type="text" placeholder="点击按钮提示数据" />
+                        <button onClick={this.showData}>点我提示数据</button>
+                        <input onBlur={this.showData2} ref={c => this.input2 = c} type="text" placeholder="失去焦点按钮提示数据" />
+                        
+                    </div>
+                )
+            }
+            
+        }
+        ReactDOM.render(<Demo />,document.getElementById('test'))
+    </script>
+</body>
+
+</html>

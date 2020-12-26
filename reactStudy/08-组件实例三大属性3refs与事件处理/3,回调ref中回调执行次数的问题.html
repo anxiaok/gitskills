@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类式对象组件</title>
+</head>
+
+<body>
+    <div id="test"></div>
+    <!-- // 18集 -->
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <!-- 用于对组件标签属性进行限制 -->
+    <script src="../js/prop-types.js"></script>
+    <script type="text/babel">
+        class Demo extends React.Component{
+            state = {isHot:true};
+            showInfo = ()=>{
+                const {input1} = this;
+                console.log(input1.value);
+            }
+            changeWeather = () => {
+                const {isHot} = this.state;
+                // 更新状态
+                this.setState({isHot:!isHot});
+            }
+            saveInput = (c)=>{
+                this.input1 = c;
+                console.log('@',c);
+            }
+            render(){
+                const {isHot} = this.state;
+                return (
+                    <div>
+                        <h2>今天天气很{isHot ? '炎热':'凉爽'}</h2>
+                        {/*<input ref={(c) => { this.input1 = c; console.log('@', c) }} type="text" placeholder="点击按钮提示数据" />*/}
+                        <input ref={this.saveInput} type="text" placeholder="点击按钮提示数据" />
+                        <button onClick={this.showInfo}>点我提示数据</button>
+                        <button onClick={this.changeWeather}>改变天气</button>
+                    </div>
+                )
+            }
+            
+        }
+        ReactDOM.render(<Demo />,document.getElementById('test'))
+    </script>
+</body>
+
+</html>
