@@ -22,13 +22,24 @@ export default class App extends Component{
             todos:newTodos
         });
     }
+    // 用于更新一个todo对象
+    updateTodo = (id,done)=>{
+        // 获取状态中的todos
+        const {todos} = this.state;
+        // 匹配处理数据
+        const newTodos = todos.map((todoObj)=>{
+            if(todoObj.id === id) return {...todoObj,done}
+            else return todoObj
+        });
+        this.setState({todos:newTodos});
+    }
     render(){
         const {todos} = this.state;
         return (
             <div className="todo-container">
                 <div className="todo-wrap">
                     <Header addTodo={this.addTodo} />
-                    <List todos={todos}/>
+                    <List todos={todos} updateTodo={this.updateTodo}/>
                     <Footer />
                 </div>
             </div>

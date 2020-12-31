@@ -1,15 +1,19 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Item from '../Item'
 
 export default class List extends Component {
-    
+    static propTypes={
+        todos:PropTypes.array.isRequired,
+        updateTodo:PropTypes.func.isRequired
+    }
     render() {
-        const {todos} = this.props;
+        const {todos,updateTodo} = this.props;
         return (
             <ul className="todo-main">
                 {
                     todos.map(todo=>{
-                        return <Item key={todo.id} {...todo} />
+                        return <Item key={todo.id} {...todo} updateTodo={updateTodo} />
                     })
                 }
             </ul>

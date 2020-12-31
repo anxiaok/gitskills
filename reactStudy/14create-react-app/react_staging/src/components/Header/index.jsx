@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import {nanoid} from 'nanoid'
 
 export default class Header extends Component {
+    static propTypes={
+        addTodo:PropTypes.func.isRequired
+    }
     // uuid: 库比较大 可以使用nanoid 库
     handleKeyUp = (event)=>{
         const {keyCode,target} = event;
