@@ -5,15 +5,16 @@ import Item from '../Item'
 export default class List extends Component {
     static propTypes={
         todos:PropTypes.array.isRequired,
-        updateTodo:PropTypes.func.isRequired
+        updateTodo:PropTypes.func.isRequired,
+        deleteTodo:PropTypes.func.isRequired
     }
     render() {
-        const {todos,updateTodo} = this.props;
+        const {todos,updateTodo,deleteTodo} = this.props;
         return (
             <ul className="todo-main">
                 {
                     todos.map(todo=>{
-                        return <Item key={todo.id} {...todo} updateTodo={updateTodo} />
+                        return <Item key={todo.id} {...todo} updateTodo={updateTodo} deleteTodo={deleteTodo} />
                     })
                 }
             </ul>
