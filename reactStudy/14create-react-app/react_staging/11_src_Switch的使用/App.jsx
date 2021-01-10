@@ -1,10 +1,11 @@
 // 创建“外壳”组件App 分别暴露和统一暴露
 import React,{Component} from 'react'
-import {Link,NavLink,Route, Switch,Redirect} from 'react-router-dom'
+import {Link,NavLink,Route, Switch} from 'react-router-dom'
 import Home from './pages/Home' // Home是路由组件
 import About from './pages/About'// About是路由组件
 import Header from './components/Header' // Header是一般组件
 import MyNavLink from './components/MyNavLink'
+import Test from './pages/Test'
 // 创建并暴露App组件
 export default class App extends Component{
     render(){
@@ -48,7 +49,7 @@ export default class App extends Component{
                                 <Switch>
                                     <Route path="/about" component={About} />
                                     <Route path="/home" component={Home} />
-                                    <Redirect to="/about" />
+                                    <Route path="/home" component={Test} />
                                 </Switch>
                             </div>
                         </div>
