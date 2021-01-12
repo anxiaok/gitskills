@@ -91,3 +91,19 @@
 ## 十、嵌套路由
     1，注册子路由时要写上父路由的path值
     2，路由的匹配是按照注册路由的顺序进行的
+
+## 十一、向路由组件传递参数
+    1，params参数
+            路由链接（携带参数）：<Link to="/demo/test/tom/18">详情</Link>
+            注册路由（申明接收）：<Route path="/demo/test/:name/:age" component={test} />
+            接收参数：const {match:{params:{id,title}}} = this.props;
+    2，search参数
+            路由链接（携带参数）：<Link to="/demo/test/?name=tom&age=18">详情</Link>
+            注册路由（无需申明，正常注册即可）：<Route path="/demo/test" component={test} />
+            接收参数：const {location:{search}} = this.props;
+            备注：获取到的search是urlencoded编码字符串，需要借助querystring解析
+    3，state参数
+            路由链接（携带参数）：<Link to={{pathname:'/demo/test',state={name:'tom',age:'18'}}}>详情</Link>
+            注册路由（无需申明，正常注册即可）：<Route path="/demo/test" component={test} />
+            接收参数：const {location:{state}} = this.props;
+            备注：刷新也可以保留住参数，清缓存会消失
