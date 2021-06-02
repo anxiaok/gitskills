@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类式对象组件</title>
+</head>
+<body>
+    <div id="test"></div>
+    <!-- // 18集 -->
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <script type="text/babel">
+        class Weather extends React.Component{
+            // 初始化状态
+            state = {isHot: true,wind: '大风'}
+            // 自定义方法 -- 要用赋值语句的形式+箭头函数
+            changeWeather = () => {
+                const isHot = this.state.isHot;
+                this.setState({ isHot: !isHot });
+            }
+            render(){
+                const {isHot, wind} = this.state;
+                return (
+                    <div>
+                        <h2 onClick={this.changeWeather}>今天天气很{isHot?'炎热':'凉爽'},今天有{wind}</h2>
+                    </div>
+                );
+            }
+            
+        }
+        ReactDOM.render(<Weather />,document.getElementById('test'));
+    </script>
+</body>
+</html>
